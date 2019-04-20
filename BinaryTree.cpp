@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 
 using namespace std;
-
+typedef struct node Node;
 struct node
 {
     int data;
@@ -9,27 +9,64 @@ struct node
     struct node *right;
 };
 
-struct node *newNode(int data)
+Node *create_Node(int data)
 {
-    struct node *node = (struct node*)malloc(sizeof(struct node));
+    Node *new_node = (struct node*)malloc(sizeof(Node));
 
-    node->data = data;
+    new_node->data = data;
 
-    node->left = NULL;
-    node->right = NULL;
 
-    return (node);
+    new_node->left = NULL;
+    new_node->right = NULL;
+
+    return (new_node);
 }
 
+void add_left_child(Node *node, Node *child)
+{
+    node->left = child;
+}
+
+void add_right_child(Node *node, Node *child)
+{
+    node->right = child;
+}
+
+Node *create_tree()
+{
+    Node *two = create_Node(2);
+    Node *seven = create_Node(7);
+    Node *nine = create_Node(9);
+    add_left_child(two,seven);
+    add_right_child(two, nine);
+
+    Node *one = create_Node(1);
+    Node *six = create_Node(6);
+    add_left_child(seven, one);
+    add_right_child(seven, six);
+
+    Node *five = create_Node(5);
+    Node *ten = create_Node(10);
+
+    add_left_child(six, five);
+    add_right_child(six, ten);
+
+    Node *eight = create_Node(8);
+    add_right_child(nine, eight);
+
+    Node *three = create_Node(3);
+    Node *four = create_Node(4);
+
+    add_left_child(eight, four);
+    add_right_child(eight, three);
+
+    return two;
+}
 int main()
 {
-    struct node *root = newNode(1);
 
-    root->left = newNode(2);
-     root->right = newNode(3);
+    Node *root = create_tree();
+    printf("%d\n",root->data);
 
-     root->left->left = newNode(4);
-
-    cout<<root->left->left->data<<endl;
      return 0;
 }
